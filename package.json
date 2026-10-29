@@ -1,0 +1,20 @@
+{
+  "name": "article-lens",
+  "version": "1.0.4",
+  "private": true,
+  "description": "HTML frontend and Python SQLite backend for AI-powered article discovery",
+  "scripts": {
+    "build": "python3 scripts/build_frontend.py",
+    "build:frontend": "npm run build",
+    "start": "npm run build && python3 -m backend.server",
+    "start:web": "npm start",
+    "dev": "npm start",
+    "pretest": "npm run build",
+    "test": "npm run test:backend && npm run test:browser",
+    "test:backend": "python3 -m unittest discover -s tests -p 'test_backend.py'",
+    "test:browser": "node tests/frontend-backend.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

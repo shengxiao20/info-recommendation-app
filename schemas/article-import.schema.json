@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://article-lens.local/schemas/article-import.schema.json",
+  "title": "Article Lens 文章导入协议",
+  "description": "导入文件可以是一篇文章对象，或由文章对象组成的非空数组。",
+  "oneOf": [
+    { "$ref": "#/$defs/article" },
+    {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/article" }
+    }
+  ],
+  "$defs": {
+    "article": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 500, "description": "文章标题" },
+        "content": { "type": "string", "description": "文章正文，支持纯文本或 Markdown；仅导入标题时可省略" },
+        "source": { "type": "string", "format": "uri", "description": "文章原始链接（可选）" },
+        "publishedAt": { "type": "string", "format": "date-time", "description": "原文发布时间，ISO 8601 格式（可选）" },
+        "tags": { "type": "array", "uniqueItems": true, "maxItems": 30, "items": { "type": "string", "minLength": 1, "maxLength": 100 }, "description": "导入时携带的文章标签（可选）" }
+      }
+    }
+  }
+}
